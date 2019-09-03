@@ -28,7 +28,6 @@ class SignUp extends Component {
         email,
         password
       );
-      console.log('user', user);
       await createUserProfileDocument(user, { displayName });
 
       this.setState({
