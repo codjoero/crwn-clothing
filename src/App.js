@@ -5,11 +5,12 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
-import './App.css';
+import Header from './components/header/header';
 import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop-page/shop-page';
-import Header from './components/header/header';
+import CheckOutPage from './pages/checkout/checkout';
 import SignInSignOutPage from './pages/sign-in-sign-up/sign-in-sign-up';
+import './App.css';
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -51,6 +52,7 @@ class App extends Component {
               currentUser ? <Redirect to="/" /> : <SignInSignOutPage />
             }
           />
+          <Route exact path="/checkout" component={CheckOutPage} />
         </Switch>
       </div>
     );
