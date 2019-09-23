@@ -17,20 +17,21 @@ class App extends Component {
 
   componentDidMount() {
     const { setCurrentUserAction } = this.props;
-    auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
-          setCurrentUserAction({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      } else {
-        setCurrentUserAction(userAuth);
-      }
-    });
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
+
+    //     userRef.onSnapshot(snapShot => {
+    //       setCurrentUserAction({
+    //         id: snapShot.id,
+    //         ...snapShot.data()
+    //       });
+    //     });
+    //   } else {
+    //     setCurrentUserAction(userAuth);
+    //   }
+    // });
   }
 
   componentWillUnmount() {
