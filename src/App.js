@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { checkUserSession } from './redux/user/user.actions';
 import Header from './components/header/header';
 import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop-page/shop-page';
@@ -16,22 +15,8 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUserAction } = this.props;
-
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-
-    //     userRef.onSnapshot(snapShot => {
-    //       setCurrentUserAction({
-    //         id: snapShot.id,
-    //         ...snapShot.data()
-    //       });
-    //     });
-    //   } else {
-    //     setCurrentUserAction(userAuth);
-    //   }
-    // });
+    const { checkUserSessionAction } = this.props;
+    checkUserSessionAction();
   }
 
   componentWillUnmount() {
@@ -65,7 +50,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUserAction: user => dispatch(setCurrentUser(user))
+  checkUserSessionAction: () => dispatch(checkUserSession())
 });
 
 export default connect(
